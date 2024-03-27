@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  app:
+    container_name: next-app
+    build:
+      context: .
+    tty: true
+    environment:
+    - WATCHPACK_POLLING=true
+    volumes:
+    - ./next-app:/app
+    ports:
+    - '3000:3000'
+    - '5555:5555'
+    networks:
+      - app_network
+    command: sh -c "npm run dev"
+    depends_on:
+      - db
+  db:
+    image: postgres:16-alpine
+    container_name: "${CONTAINER_NAME}"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: app_db
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - ./postgres/db:/var/lib/postgresql/data/
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
