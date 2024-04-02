@@ -12,6 +12,7 @@ services:
     ports:
     - '3000:3000'
     - '5555:5555'
+    restart: always
     networks:
       - app_network
     command: sh -c "npm run dev"
