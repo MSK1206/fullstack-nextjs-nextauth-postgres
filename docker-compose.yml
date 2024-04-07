@@ -18,6 +18,22 @@ services:
     command: sh -c "npm run dev"
     depends_on:
       - db
+  e2e:
+    container_name: playwright
+    tty: true
+    build:
+      context: ./e2e
+      dockerfile: ./Dockerfile.e2e
+    environment:
+      - DISPLAY=:0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./e2e/playwright:/e2e
+    ports:
+      - "9333:9333"
+    ipc: host
+    networks:
+      - app_network
   db:
     image: postgres:16-alpine
     container_name: "${CONTAINER_NAME}"
