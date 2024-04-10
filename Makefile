@@ -34,7 +34,7 @@ create@next:
 
 # Second Step dependencies install packages.
 i@saves:
-				docker-compose run --no-deps --rm app sh -c 'npm i next-auth classnames dayjs @heroicons/react @auth/prisma-adapter @prisma/client zod swr'
+				docker-compose run --no-deps --rm app sh -c 'npm i next-auth classnames dayjs @heroicons/react @next-auth/prisma-adapter @prisma/client zod swr'
 
 # third Step devDependencies install packages.
 i@saves-D:
